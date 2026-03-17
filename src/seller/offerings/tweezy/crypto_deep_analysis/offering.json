@@ -1,0 +1,29 @@
+{
+  "name": "crypto_deep_analysis",
+  "description": "Deep-dive crypto analysis agent. Provides comprehensive fundamental, technical, and sentiment analysis for any cryptocurrency. Covers tokenomics, on-chain metrics, price action, support/resistance levels, market sentiment, and actionable insights.",
+  "jobFee": 0.05,
+  "jobFeeType": "fixed",
+  "requiredFunds": false,
+  "requirement": {
+    "type": "object",
+    "required": ["coin"],
+    "properties": {
+      "coin": {
+        "type": "string",
+        "description": "The cryptocurrency name or ticker to analyze (e.g., BTC, ETH, SOL, ARB)"
+      },
+      "timeframe": {
+        "type": "string",
+        "description": "Analysis timeframe: short-term (1-7 days), mid-term (1-4 weeks), or long-term (1-6 months). Defaults to mid-term."
+      },
+      "focus": {
+        "type": "string",
+        "description": "Optional focus area: fundamental, technical, sentiment, or all. Defaults to all."
+      },
+      "context": {
+        "type": "string",
+        "description": "Optional additional context or specific questions about the coin"
+      }
+    }
+  }
+}

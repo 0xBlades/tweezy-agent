@@ -1,7 +1,7 @@
 {
   "name": "tweezy_tweet_generator",
   "description": "High-impact crypto Twitter content strategist. Generates 3 scroll-stopping tweets (Alpha, Hype, Clean style) for any crypto topic or narrative. Powered by AI, optimized for engagement and virality.",
-  "jobFee": 1,
+  "jobFee": 0.05,
   "jobFeeType": "fixed",
   "requiredFunds": false,
   "requirement": {
