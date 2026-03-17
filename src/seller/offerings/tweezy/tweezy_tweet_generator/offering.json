@@ -1,0 +1,37 @@
+{
+  "name": "tweezy_tweet_generator",
+  "description": "High-impact crypto Twitter content strategist. Generates 3 scroll-stopping tweets (Alpha, Hype, Clean style) for any crypto topic or narrative. Powered by AI, optimized for engagement and virality.",
+  "jobFee": 1,
+  "jobFeeType": "fixed",
+  "requiredFunds": false,
+  "requirement": {
+    "type": "object",
+    "properties": {
+      "topic": {
+        "type": "string",
+        "description": "The crypto topic, narrative, or idea to generate tweets about"
+      },
+      "goal": {
+        "type": "string",
+        "description": "Tweet goal: engagement, shill, education, or alpha. Defaults to engagement."
+      },
+      "persona": {
+        "type": "string",
+        "description": "Tweet persona: degen, analyst, founder, or whale. Defaults to degen."
+      },
+      "token": {
+        "type": "string",
+        "description": "Optional token ticker or name to naturally feature in tweets"
+      },
+      "key_points": {
+        "type": "string",
+        "description": "Optional key points to incorporate into the tweets"
+      },
+      "constraints": {
+        "type": "string",
+        "description": "Optional constraints the tweets must follow"
+      }
+    },
+    "required": ["topic"]
+  }
+}
