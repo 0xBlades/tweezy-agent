@@ -241,6 +241,20 @@ async function main() {
     },
   });
 
+  // --- Railway Healthcheck Fix ---
+  // Railway expects Web Services to bind to process.env.PORT. 
+  // If we don't bind to it, Railway kills the container after ~15 seconds.
+  if (process.env.PORT) {
+    const http = await import("http");
+    const server = http.createServer((req, res) => {
+      res.writeHead(200, { "Content-Type": "text/plain" });
+      res.end("Seller runtime is healthy and running.");
+    });
+    server.listen(process.env.PORT, () => {
+      console.log(`[seller] Dummy HTTP server listening on PORT ${process.env.PORT} to satisfy Railway healthchecks.`);
+    });
+  }
+
   console.log("[seller] Seller runtime is running. Waiting for jobs...\n");
 }
 
