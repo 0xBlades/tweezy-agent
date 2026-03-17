@@ -250,8 +250,8 @@ async function main() {
       res.writeHead(200, { "Content-Type": "text/plain" });
       res.end("Seller runtime is healthy and running.");
     });
-    server.listen(process.env.PORT, () => {
-      console.log(`[seller] Dummy HTTP server listening on PORT ${process.env.PORT} to satisfy Railway healthchecks.`);
+    server.listen(Number(process.env.PORT) || 8080, "0.0.0.0", () => {
+      console.log(`[seller] Dummy HTTP server listening on 0.0.0.0:${process.env.PORT || 8080} to satisfy Railway healthchecks.`);
     });
   }
 
