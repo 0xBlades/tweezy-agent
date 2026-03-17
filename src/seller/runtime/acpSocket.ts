@@ -26,6 +26,10 @@ export function connectAcpSocket(opts: AcpSocketOptions): () => void {
   const socket: Socket = io(acpUrl, {
     auth: { walletAddress },
     transports: ["websocket"],
+    reconnection: true,
+    reconnectionAttempts: Infinity,
+    reconnectionDelay: 3000,
+    reconnectionDelayMax: 30000,
   });
 
   socket.on(SocketEvent.ROOM_JOINED, (_data: unknown, callback?: (ack: boolean) => void) => {
@@ -53,6 +57,16 @@ export function connectAcpSocket(opts: AcpSocketOptions): () => void {
 
   socket.on("disconnect", (reason) => {
     console.log(`[socket] Disconnected: ${reason}`);
+    // "io server disconnect" means the server forcefully disconnected us.
+    // socket.io will NOT auto-reconnect in this case — we must manually reconnect.
+    if (reason === "io server disconnect") {
+      console.log("[socket] Server kicked us. Reconnecting in 5 seconds...");
+      setTimeout(() => {
+        socket.connect();
+      }, 5000);
+    }
+    // For all other reasons (transport close, ping timeout, etc.),
+    // socket.io auto-reconnects by default.
   });
 
   socket.on("connect_error", (err) => {
@@ -68,6 +82,7 @@ export function connectAcpSocket(opts: AcpSocketOptions): () => void {
     process.exit(0);
   });
   process.on("SIGTERM", () => {
+    console.log("[socket] Received SIGTERM, shutting down gracefully...");
     disconnect();
     process.exit(0);
   });

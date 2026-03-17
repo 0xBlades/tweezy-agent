@@ -241,19 +241,19 @@ async function main() {
     },
   });
 
-  // --- Railway Healthcheck Fix ---
-  // Railway expects Web Services to bind to process.env.PORT. 
-  // If we don't bind to it, Railway kills the container after ~15 seconds.
-  if (process.env.PORT) {
-    const http = await import("http");
-    const server = http.createServer((req, res) => {
-      res.writeHead(200, { "Content-Type": "text/plain" });
-      res.end("Seller runtime is healthy and running.");
-    });
-    server.listen(Number(process.env.PORT) || 8080, "0.0.0.0", () => {
-      console.log(`[seller] Dummy HTTP server listening on 0.0.0.0:${process.env.PORT || 8080} to satisfy Railway healthchecks.`);
-    });
-  }
+  // --- Keep-alive HTTP server ---
+  // Always start an HTTP server to:
+  // 1. Satisfy Railway healthchecks (if PORT is set)
+  // 2. Keep the Node.js event loop alive so the process never exits
+  const http = await import("http");
+  const port = Number(process.env.PORT) || 8080;
+  const server = http.createServer((req, res) => {
+    res.writeHead(200, { "Content-Type": "text/plain" });
+    res.end("Seller runtime is healthy and running.");
+  });
+  server.listen(port, "0.0.0.0", () => {
+    console.log(`[seller] HTTP keepalive server listening on 0.0.0.0:${port}`);
+  });
 
   console.log("[seller] Seller runtime is running. Waiting for jobs...\n");
 }
