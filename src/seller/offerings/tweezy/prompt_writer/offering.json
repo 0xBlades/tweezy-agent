@@ -1,0 +1,33 @@
+{
+  "name": "prompt_writer",
+  "description": "Expert AI prompt engineer. Generates optimized, production-ready prompts for any use case — trading bots, content writing, data analysis, customer support, coding assistants, and more. Outputs structured prompts with system instructions, examples, and guardrails.",
+  "jobFee": 0.05,
+  "jobFeeType": "fixed",
+  "requiredFunds": false,
+  "requirement": {
+    "type": "object",
+    "required": ["purpose"],
+    "properties": {
+      "purpose": {
+        "type": "string",
+        "description": "What the prompt is for (e.g., 'crypto trading signal bot', 'tweet writer', 'code reviewer', 'customer support agent')"
+      },
+      "model": {
+        "type": "string",
+        "description": "Target AI model: gpt-4, claude, gemini, llama, or general. Defaults to general."
+      },
+      "tone": {
+        "type": "string",
+        "description": "Desired tone: professional, casual, technical, friendly, authoritative. Defaults to professional."
+      },
+      "details": {
+        "type": "string",
+        "description": "Optional extra details, constraints, or specific behaviors the prompt should include"
+      },
+      "format": {
+        "type": "string",
+        "description": "Output format: system-prompt, multi-turn, chain-of-thought, or full-template. Defaults to system-prompt."
+      }
+    }
+  }
+}
