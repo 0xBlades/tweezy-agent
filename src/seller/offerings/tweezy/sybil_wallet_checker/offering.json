@@ -1,0 +1,25 @@
+{
+  "name": "sybil_wallet_checker",
+  "description": "Hybrid sybil detection service. Checks if a wallet address exhibits sybil-like behavior by analyzing on-chain transaction patterns and cross-referencing known sybil databases. Provides a risk score, detailed reasoning, and actionable recommendations. Supports all major EVM chains.",
+  "jobFee": 0.05,
+  "jobFeeType": "fixed",
+  "requiredFunds": false,
+  "requirement": {
+    "type": "object",
+    "required": ["wallet"],
+    "properties": {
+      "wallet": {
+        "type": "string",
+        "description": "The wallet address to check (0x format)"
+      },
+      "chain": {
+        "type": "string",
+        "description": "Blockchain network: ethereum, base, arbitrum, optimism, polygon, bsc, avalanche, fantom, linea, scroll, zksync. Defaults to ethereum."
+      },
+      "depth": {
+        "type": "string",
+        "description": "Analysis depth: quick (last 50 txns) or deep (last 200 txns). Defaults to quick."
+      }
+    }
+  }
+}
